@@ -5,6 +5,63 @@ Entries marked `[inferred]` were reconstructed from code and git history during 
 
 ---
 
+## 2026-09-26 — Linear cutover: WatchAtlas's sole planning/intent store is now Linear (supersedes 2026-09-18 GitHub-authority entry)
+
+- **Decision:** Per the canonical `sdlc-pipeline.md` / `github-projects-webhook-sync.md` org-wide policy (Linear is authoritative for planning; GitHub Issues/Projects are optional non-authoritative projections), WatchAtlas's declared intent store is now **Linear** — workspace `josh-muthumani`, team `JOS`. This supersedes the 2026-09-18 "Control-plane authority and no-webhook reconciliation" entry, which had named GitHub Issues + Project #13 "WatchAtlas Board" as authoritative. Same pattern as Ledger (PR #201/#247) and Chronicle (PR #137).
+- **Migration mechanism:** Linear's native GitHub importer (Settings → Import/Export → GitHub), run manually by Josh against `aurora-peak/watchatlas-web`, not the `linear` CLI/API — this is a one-time bulk import, not a scriptable steady-state operation.
+- **Verification:** All 34 previously-open GitHub issues confirmed present in Linear under the `WatchAtlas` project by title match (34/34, zero missing either direction), with `type:` labels and Feature→Story parent/sub-issue hierarchy preserved intact by the importer. Cross-checked via `linear issues list` and `gh issue list`.
+- **Migration inventory — all 34 previously-open GitHub issues, now closed on GitHub with a pointer comment to their new Linear ID:**
+
+| GitHub issue | Type | Linear ID | Linear parent |
+|---|---|---|---|
+| [#3](https://github.com/aurora-peak/watchatlas-web/issues/3) | Feature | JOS-159 | — |
+| [#4](https://github.com/aurora-peak/watchatlas-web/issues/4) | Feature | JOS-160 | — |
+| [#5](https://github.com/aurora-peak/watchatlas-web/issues/5) | Feature | JOS-161 | — |
+| [#6](https://github.com/aurora-peak/watchatlas-web/issues/6) | Feature | JOS-162 | — |
+| [#7](https://github.com/aurora-peak/watchatlas-web/issues/7) | Feature | JOS-163 | — |
+| [#8](https://github.com/aurora-peak/watchatlas-web/issues/8) | Feature | JOS-164 | — |
+| [#9](https://github.com/aurora-peak/watchatlas-web/issues/9) | Feature | JOS-165 | — |
+| [#10](https://github.com/aurora-peak/watchatlas-web/issues/10) | Feature | JOS-166 | — |
+| [#11](https://github.com/aurora-peak/watchatlas-web/issues/11) | Feature | JOS-167 | — |
+| [#12](https://github.com/aurora-peak/watchatlas-web/issues/12) | Bug | JOS-168 | — |
+| [#16](https://github.com/aurora-peak/watchatlas-web/issues/16) | Story | JOS-169 | JOS-160 |
+| [#17](https://github.com/aurora-peak/watchatlas-web/issues/17) | Story | JOS-170 | JOS-160 |
+| [#18](https://github.com/aurora-peak/watchatlas-web/issues/18) | Story | JOS-171 | JOS-160 |
+| [#19](https://github.com/aurora-peak/watchatlas-web/issues/19) | Story | JOS-172 | JOS-161 |
+| [#20](https://github.com/aurora-peak/watchatlas-web/issues/20) | Story | JOS-173 | JOS-161 |
+| [#21](https://github.com/aurora-peak/watchatlas-web/issues/21) | Story | JOS-174 | JOS-161 |
+| [#22](https://github.com/aurora-peak/watchatlas-web/issues/22) | Story | JOS-175 | JOS-162 |
+| [#23](https://github.com/aurora-peak/watchatlas-web/issues/23) | Story | JOS-176 | JOS-162 |
+| [#24](https://github.com/aurora-peak/watchatlas-web/issues/24) | Story | JOS-177 | JOS-162 |
+| [#25](https://github.com/aurora-peak/watchatlas-web/issues/25) | Story | JOS-178 | JOS-162 |
+| [#26](https://github.com/aurora-peak/watchatlas-web/issues/26) | Bug | JOS-179 | — |
+| [#28](https://github.com/aurora-peak/watchatlas-web/issues/28) | Task | JOS-180 | — |
+| [#29](https://github.com/aurora-peak/watchatlas-web/issues/29) | Story | JOS-181 | JOS-163 |
+| [#35](https://github.com/aurora-peak/watchatlas-web/issues/35) | Bug | JOS-182 | — |
+| [#42](https://github.com/aurora-peak/watchatlas-web/issues/42) | Unlabeled | JOS-183 | — |
+| [#43](https://github.com/aurora-peak/watchatlas-web/issues/43) | Unlabeled | JOS-184 | — |
+| [#45](https://github.com/aurora-peak/watchatlas-web/issues/45) | Bug | JOS-185 | — |
+| [#47](https://github.com/aurora-peak/watchatlas-web/issues/47) | Bug | JOS-186 | — |
+| [#48](https://github.com/aurora-peak/watchatlas-web/issues/48) | Bug | JOS-187 | — |
+| [#49](https://github.com/aurora-peak/watchatlas-web/issues/49) | Task | JOS-188 | — |
+| [#50](https://github.com/aurora-peak/watchatlas-web/issues/50) | Bug | JOS-189 | — |
+| [#91](https://github.com/aurora-peak/watchatlas-web/issues/91) | Unlabeled | JOS-190 | — |
+| [#92](https://github.com/aurora-peak/watchatlas-web/issues/92) | Unlabeled | JOS-191 | — |
+| [#93](https://github.com/aurora-peak/watchatlas-web/issues/93) | Unlabeled | JOS-192 | — |
+
+- **GitHub Project retired:** Closed "WatchAtlas Board" (user-level GitHub Project #13, `joshaumuthumani`) — it is now a stale non-authoritative surface per the org-wide policy, not deleted (history preserved).
+- **Still open (not part of this entry):** the Linear-aware `work-item-link` CI check (validating `Resolves JOS-<id>` via the Linear GraphQL API, per Chronicle's PR pattern) is not yet wired — it needs a new `LINEAR_CI_READ_KEY` repository secret that only Josh can add. Until that check lands, `CLAUDE.md`'s "every change maps to a GitHub issue" workflow section is stale and should be read as "every change maps to a Linear issue" — not yet updated in this entry; tracked as a follow-up.
+- **Scope:** planning/intent-store cutover only — no application code, architecture, or evaluation content was authored or altered by this entry.
+
+## 2026-09-25 — SDLC sync: declared Stage 3, in progress (issue #98)
+
+- **Decision:** Add the README Stage/Tier line required by Stage 1 (`docs/sdlc-sync-contract.md` in `projects-status`). Declared stage is **3, in progress** — the lower of two candidate readings, per the sync skill's "never inflate; when ambiguous, declare the lower stage" rule.
+- **Evidence for Stage 3 (mechanical, file-existence only):** `docs/architecture/` is non-empty (`architecture.md`, `threat-model.md`, `design-review.md`, `adr/0001-server-side-tmdb-proxy.md`); tier confirmed in the 2026-09-17 entry below.
+- **Evidence against declaring higher:** `docs/architecture/design-review.md` (dated 2026-09-17) states in its own words that Architecture and requirements governance is a **"BLOCKER for Stage 3 completion"** and that the repo is "not yet architecture-gate ready." No later entry in this log records the council reconciling or freezing that review.
+- **Flagged drift (not resolved by this entry):** git history shows continued feature development and real merged PRs (e.g. #58, #59, #60 and later) flowing through an operating Stage 10 PR gate (`.github/workflows/ci.yml`, `independent-review.yml`, `pr-verdict.yml`) after the 2026-09-17 blocker was recorded. That is Stage 9/10-level activity happening while Stage 3 is still marked blocked in this repo's own documentation. This sync intentionally does not resolve that contradiction — it surfaces it for the repo owner to either formally close Stage 3 (reconcile the council findings, freeze the architecture docs) or explicitly accept continuing to build ahead of it.
+- **Gaps not filled by this sync (declared stage is 3, so these sit beyond it and are reported, not fabricated):** Stage 3A design-direction artifacts (`docs/design/` was empty — a stub was added, see below), Stage 5 (`docs/evaluations/`), Stage 7 (`docs/planning/` — related planning content exists under `docs/superpowers/plans/` and `docs/kanban/` instead, a `present_under_different_name` candidate the repo owner should confirm rather than this sync renaming anything), Stage 9.5 (`work-item-link.yml`), Stage 11 (`docs/review-policy.md`). `.github/workflows/gate.yml` is also absent; `ci.yml` + `security.yml` appear to cover the same isolation/scan intent (another `present_under_different_name` candidate, same pattern as Ledger PR #201).
+- **Scope:** bookkeeping only — no architecture, PRD, threat-model, or evaluation content was authored or altered by this entry.
+
 ## 2026-09-18 — Control-plane authority and no-webhook reconciliation (issue #81)
 
 - **Authority:** GitHub Issues, projected into GitHub Project #13 WatchAtlas Board, is the single authoritative intent/work-item source for approved requirements, Feature/Story/Task/Bug hierarchy, ownership, stage gates, acceptance criteria, and approvals. GitHub remains authoritative for issue/PR lifecycle, checks, reviews, merges, and closes. Titles are not identity keys; Issue IDs and Project item IDs are.
