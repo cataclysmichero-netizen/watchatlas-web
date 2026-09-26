@@ -19,6 +19,7 @@
 
 - **Tier:** load-bearing, confirmed by Josh on 2026-09-18 (`docs/DECISIONS.md`, "2026-09-17 — Architecture review artifacts and current gate status").
 - **Stage:** 3 in progress — Architecture Council documents (`docs/architecture/architecture.md`, `threat-model.md`, `design-review.md`) are drafted but explicitly **not frozen**; `docs/architecture/design-review.md` records the council as a "BLOCKER for Stage 3 completion" as of 2026-09-17. Note: build activity and the Stage 10 PR gate (`ci.yml`, `independent-review.yml`, `pr-verdict.yml`) have continued operating in practice since that date — this drift between the declared-blocked Stage 3 and observed Stage 9/10 activity is flagged, not resolved, here; see `docs/DECISIONS.md`.
+- **Planning authority:** Linear (workspace `josh-muthumani`, team `JOS`) as of 2026-09-26 — see `docs/DECISIONS.md`, "2026-09-26 — Linear cutover". All 34 previously-open GitHub issues were migrated and closed; the "WatchAtlas Board" GitHub Project is retired. `CLAUDE.md`'s GitHub-issue-first workflow section is stale pending an update; the Linear-aware `work-item-link` CI check is not yet wired.
 
 ## About
 
